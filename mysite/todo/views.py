@@ -13,3 +13,4 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Task
     template_name = "todo/detail.html"
+    context_object_name = "task"
