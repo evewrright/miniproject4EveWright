@@ -3,20 +3,32 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import Task
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class IndexView(generic.ListView):
+
+class MyLoginView(LoginView):
+    template_name = 'todo/login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('tasks')
+
+
+class IndexView(LoginRequiredMixin, generic.ListView):
     model = Task
     template_name = "todo/index.html"
     context_object_name = "tasks"
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     template_name = "todo/detail.html"
     context_object_name = "task"
 
 
-class Create(generic.CreateView):
+class Create(LoginRequiredMixin, generic.CreateView):
     model = Task
     template_name = "todo/create.html"
     fields = ['title', 'description', 'category']
@@ -27,7 +39,7 @@ class Create(generic.CreateView):
         return super().form_valid(form)
 
 
-class Update(generic.UpdateView):
+class Update(LoginRequiredMixin, generic.UpdateView):
     model = Task
     template_name = "todo/update.html"
     fields = ['title', 'description', 'category']

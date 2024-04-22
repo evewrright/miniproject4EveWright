@@ -1,6 +1,10 @@
-<h3>Task Form Goes Here</h3>
-<a href="{%  url 'todo:index' %}">Cancel</a>
-<form method="POST">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Task Form Goes Here</h3>
+    <a href="{%  url 'todo:index' %}">Cancel</a>
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}

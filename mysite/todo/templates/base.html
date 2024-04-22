@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +21,55 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+        <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+      <div class="container">
+            <!-- Toggle button -->
+         <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+         >
+            <i class="fas fa-bars"></i>
+         </button>
+            <!-- Collapsible wrapper -->
+         <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                        Tasks
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'todo:index' %}">Active Tasks</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="">Task History</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Right buttons -->
+            {% if request.user.is_authenticated %}
+              <div class="d-flex align-items-center">
+                <span class="navbar-text" id="welcome-user">Welcome, {{ request.user.username }}</span>
+                <a href="{% url 'todo:logout' %}" class="btn btn-link px-3 me-2">Logout</a>
+              </div>
+            {% else %}
+              <div class="d-flex align-items-center">
+                <a href="{%  url 'todo:login' %}" class="btn btn-link px-3 me-2">Login/Register</a>
+              </div>
+            {% endif %}
+         </div>
+            <!-- Collapsible wrapper -->
+      </div>
+    </nav>
+    <!-- Navbar -->
     {% block content %}{% endblock %}
     <!-- MDB -->
     <script
