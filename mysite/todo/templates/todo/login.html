@@ -3,8 +3,11 @@
 
 {% block content %}
     <h3>Login Page</h3>
-    <form method="POST">{% csrf_token %}
+    <form method="POST" action="{% url 'todo:my-login' %}">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Login">
+        <input type="submit" value="login">
     </form>
 {% endblock %}
+
+
+

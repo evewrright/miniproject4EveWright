@@ -58,11 +58,13 @@
             {% if request.user.is_authenticated %}
               <div class="d-flex align-items-center">
                 <span class="navbar-text" id="welcome-user">Welcome, {{ request.user.username }}</span>
-                <a href="{% url 'todo:logout' %}" class="btn btn-link px-3 me-2">Logout</a>
+                <form action="{% url 'todo:logout' %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-link px-3 me-2">Logout</button>
+                </form>
               </div>
             {% else %}
               <div class="d-flex align-items-center">
-                <a href="{%  url 'todo:login' %}" class="btn btn-link px-3 me-2">Login/Register</a>
+                <a href="{%  url 'todo:my-login' %}" class="btn btn-link px-3 me-2">Login/Register</a>
               </div>
             {% endif %}
          </div>
