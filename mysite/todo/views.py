@@ -45,6 +45,7 @@ class Update(LoginRequiredMixin, generic.UpdateView):
     fields = ['title', 'description', 'category']
     success_url = reverse_lazy("todo:index")
 
-class TaskDeleteView(generic.DeleteView):
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("todo:index")
+    template_name = "todo/index.html"
