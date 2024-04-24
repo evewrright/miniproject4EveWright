@@ -35,7 +35,13 @@
                             <td><a href="{% url 'todo:detail' task.id %}">{{ task.title }}</a></td>
                             <td>{{ task.category }}</td>
                             <td>{{ task.created }}</td>
-                            <td>Status Example</td>
+                            <td>
+                                <form action="{% url 'todo:mark_complete' task.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <button type="submit" class="btn btn-primary">Mark Complete</button>
+                                </form>
+                            </td>
                             <td><button type="button" class="btn btn-danger" data-task-id="{{ task.id }}" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteModal{{ task.id }}"><i class="fas fa-trash-can"></i></button>
                             </td>
                             <td><a href="{% url 'todo:update' task.id %}">Edit</a></td>
@@ -77,7 +83,3 @@
       </div>
     </section>
 {% endblock %}
-
-
-
-
