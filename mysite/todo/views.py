@@ -21,6 +21,16 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = "todo/index.html"
     context_object_name = "tasks"
 
+    def get_queryset(self):
+        # Only retrieve tasks that were created by current user
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(created_by_id=self.request.user)
+        else:
+            return Task.objects.none()
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
@@ -44,6 +54,7 @@ class Update(LoginRequiredMixin, generic.UpdateView):
     template_name = "todo/update.html"
     fields = ['title', 'description', 'category']
     success_url = reverse_lazy("todo:index")
+
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
