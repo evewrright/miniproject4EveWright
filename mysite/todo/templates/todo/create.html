@@ -1,10 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Task Form Goes Here</h3>
-    <a href="{%  url 'todo:index' %}">Cancel</a>
-    <form method="POST">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save">
-    </form>
+    <section class="intro">
+        <div class="mask d-flex align-items-center h-100" style="background-color: #D6D6D6;">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-lg-10">
+                <div class="card" style="border-radius: 1rem;">
+                  <div class="card-body p-5">
+
+                    <h3 class="mb-5 text-center">Add Task</h3>
+                    <a href="{%  url 'todo:index' %}">Cancel</a>
+
+                    <form method="POST" class="form">
+                      {% csrf_token %}
+                      <!-- Title -->
+                      <div class="form-group">
+                        <label class="form-label">{{ form.title.label_tag }}</label>
+                        {{ form.title }}
+                      </div>
+                      <!-- Description -->
+                      <div class="form-group">
+                        <label class="form-label">{{ form.description.label_tag }}</label>
+                        {{ form.description }}
+                      </div>
+                      <!-- Category -->
+                      <div class="form-outline mb-4">
+                        <label class="form-label">{{ form.category.label_tag }}</label>
+                        {{ form.category }}
+                      </div>
+                      <!-- Submit button -->
+                      <button data-mdb-ripple-init type="submit" value="Save" class="btn btn-primary btn-block mb-4">Submit</button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
 {% endblock %}
+
+
+
+
+
+
+
+

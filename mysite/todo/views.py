@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
+
+from .forms import TaskForm
 from .models import Task
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -46,12 +48,13 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
 
 class Create(LoginRequiredMixin, generic.CreateView):
     model = Task
+    form_class = TaskForm
     template_name = "todo/create.html"
-    fields = ['title', 'description', 'category']
+
     success_url = reverse_lazy("todo:index")
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user  # Set the created_by field
+        form.instance.created_by = self.request.user
         return super().form_valid(form)
 
 
