@@ -1,3 +1,40 @@
-<h1>Task: {{ task }}</h1>
+{% extends 'base.html' %}
 
 
+{% block content %}
+    <section class="order-form m-4">
+      <div class="container pt-4">
+          <div class="row">
+              <div class="col-12 px-4">
+                  <h2>Task Details</h2>
+                  <span>Created on {{ task.created }}</span>
+                  <span>  |  Created by {{ task.created_by }}</span>
+                  <hr class="mt-1" />
+              </div>
+
+              <div class="col-12">
+                <form>
+                  <!-- Title -->
+                  <div class="form-outline mb-4">
+                    <label for="task-title">Title</label>
+                    <input type="text" id="task-title" class="form-control" value="{{ task.title }}" disabled readonly />
+                  </div>
+                  <!-- Description -->
+                  <div class="form-outline mb-4">
+                    <label for="task-cat">Category</label>
+                    <input type="text" id="task-cat" class="form-control" value="{{ task.category }}" disabled readonly/>
+                  </div>
+                  <!-- Category -->
+                  <div class="form-outline mb-4">
+                    <label for="task-desc">Description</label>
+                    <textarea class="form-control" id="task-desc" rows="4" disabled readonly>{{ task.description }}</textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12">
+                  <a class="btn btn-secondary" data-mdb-ripple-init href="{%  url 'todo:index' %}" role="button">Go Back</a>
+              </div>
+          </div>
+      </div>
+    </section>
+{% endblock %}

@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-
-from .forms import TaskForm
 from .models import Task
+from .forms import TaskForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -60,8 +59,9 @@ class Create(LoginRequiredMixin, generic.CreateView):
 
 class Update(LoginRequiredMixin, generic.UpdateView):
     model = Task
+    form_class = TaskForm
     template_name = "todo/update.html"
-    fields = ['title', 'description', 'category']
+    #fields = ['title', 'description', 'category']
     success_url = reverse_lazy("todo:index")
 
     def dispatch(self, request, *args, **kwargs):
